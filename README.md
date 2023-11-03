@@ -30,7 +30,15 @@ Before using the Git Automation Script, make sure you have the following prerequ
 
 1. **Clone or Download:** Clone or download this repository to your local machine.
 
-2. **Move the Script:** Move the script file (`gitAssist`) to a directory that is included in your system's `PATH`, or follow the instructions below to set up a directory for your scripts and add it to your `PATH`.
+2. **Move the Script:** Move the script file (`gitAssist`) to a directory that is included in your system's `PATH`, or follow the instructions below to set up a directory for your scripts and add it to your `PATH`
+	- Add the directory to your **PATH**: replace the /path/to/directory in the command below with the actual path to the directory containing the gitAssist file. **Hint**: use the **pwd** command to get the path
+	    ```bash
+	    echo 'export PATH="$PATH:/path/to/directory"' >> ~/.bashrc
+	    ```
+	- Reload your shell profile: After making the changes, you'll need to reload your shell profile to apply the modifications. You can do this with the **source** command
+	    ```bash
+	    source ~/.bashrc
+	    ```
 
 3. **Make the Script Executable:** Make the script executable by running the following command in your terminal:
 
