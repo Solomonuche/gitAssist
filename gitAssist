@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# A bash that automates the process of "git add" "git commit" "git push"
+#+ allowing you to focus on your logics, codes and of course bugs
+
+# Git add process automation
+
+# Function to check if a file exists and stage it
+stage_file()
+{
+	local file="$1"
+	# verify that file exist and stage it
+	if [[ -e "$file" ]]
+	then
+		git add "$file"
+		echo "File staged: $file"
+	else
+		echo "File not found: $file"
+		exit 1
+	fi
+}
+
+# Function to automate Git commit process
+git_commit()
+{
+	echo "Git merging..."
+	local commit_message=
+	while [[ -z "$commit_message" ]]
+	do
+		echo -n "Enter commit message: "
+		read -e commit_message
+	done
+
+	echo "Git merging..."
+
+	git commit -m "$commit_message"
+}
+
+# Function to automate git push step
+git_push()
+{
+	echo "pushing to github.com..."
+	git push
+}
+
+# Prompt for and stage a file
+echo -n "Enter file name (separate multiple files with spaces OR press 1 to git add all): "
+read -e filenames
+
+# Check if the input is empty
+if [[ -z "$filenames" ]]; then
+	echo "No filenames entered. Exiting."
+	exit 1
+fi
+
+# Git add all process automation
+if [[ $filenames = 1 ]]
+then
+	git add .
+	git_commit
+	git_push
+	exit 0
+fi
+
+# Split the input into an array of filenames if multiply files were entered
+IFS=' ' read -ra files <<< "$filenames"
+
+# Loop through the array of filenames and stage each one
+for file in "${files[@]}"; do
+	stage_file "$file"
+done
+
+# Call git commit function
+git_commit
+
+# Call git push function
+git_push
